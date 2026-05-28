@@ -10,7 +10,7 @@ outline: [2, 4]
 
 ## 整体架构
 
-![RabbitMQ 整体架构](/java-technical-docs/images/source/image-22.png)
+![RabbitMQ 整体架构](/images/source/image-22.png)
 
 RabbitMQ 的核心链路：
 
@@ -43,11 +43,11 @@ Producer
 
 首先引入依赖：
 
-![RabbitMQ 引入依赖](/java-technical-docs/images/source/image-23.png)
+![RabbitMQ 引入依赖](/images/source/image-23.png)
 
 ### 配置基本信息
 
-![RabbitMQ 配置基本信息](/java-technical-docs/images/source/image-24.png)
+![RabbitMQ 配置基本信息](/images/source/image-24.png)
 
 常见配置示例：
 
@@ -63,7 +63,7 @@ spring:
 
 ### 发送消息
 
-![RabbitMQ 发送消息](/java-technical-docs/images/source/image-25.png)
+![RabbitMQ 发送消息](/images/source/image-25.png)
 
 常见发送代码：
 
@@ -73,7 +73,7 @@ rabbitTemplate.convertAndSend("order.exchange", "order.created", message);
 
 ### 接收消息
 
-![RabbitMQ 接收消息](/java-technical-docs/images/source/image-26.png)
+![RabbitMQ 接收消息](/images/source/image-26.png)
 
 常见监听代码：
 
@@ -92,7 +92,7 @@ public void handleOrderMessage(String message) {
 
 解决办法：设置 `prefetch`，让处理快的消费者多处理一些消息，实现“能者多劳”。
 
-![RabbitMQ prefetch 解决消费者堆积](/java-technical-docs/images/source/image-27.png)
+![RabbitMQ prefetch 解决消费者堆积](/images/source/image-27.png)
 
 配置示例：
 
@@ -108,11 +108,11 @@ spring:
 
 Fanout 交换机让不同微服务都接收相同消息。
 
-![Fanout 交换机](/java-technical-docs/images/source/image-28.png)
+![Fanout 交换机](/images/source/image-28.png)
 
 发送消息给交换机：
 
-![Fanout 发送消息给交换机](/java-technical-docs/images/source/image-29.png)
+![Fanout 发送消息给交换机](/images/source/image-29.png)
 
 Fanout 的特点：
 
@@ -126,7 +126,7 @@ Direct 交换机发送消息时传不同的 `routingKey`，将消息发送到相
 
 当然，Direct 也可以实现 Fanout 交换机的效果：只需要所有队列都绑定同一个 `bindingKey`。
 
-![Direct 交换机](/java-technical-docs/images/source/image-30.png)
+![Direct 交换机](/images/source/image-30.png)
 
 示意：
 
@@ -139,7 +139,7 @@ routingKey = order.paid
 
 Topic 交换机比较全能，如果不知道使用什么交换机，可以优先考虑 Topic。
 
-![Topic 交换机](/java-technical-docs/images/source/image-31.png)
+![Topic 交换机](/images/source/image-31.png)
 
 上图的意思：
 
@@ -165,11 +165,11 @@ china.news
 
 ## 声明队列和交换机基础写法
 
-![声明队列和交换机基础写法](/java-technical-docs/images/source/image-32.png)
+![声明队列和交换机基础写法](/images/source/image-32.png)
 
 注解声明：
 
-![注解声明队列和交换机](/java-technical-docs/images/source/image-33.png)
+![注解声明队列和交换机](/images/source/image-33.png)
 
 常见 Java Config 写法：
 
@@ -194,7 +194,7 @@ public Binding orderBinding(Queue orderQueue, TopicExchange orderExchange) {
 
 ## 消息转换器对对象消息进行序列化
 
-![消息转换器](/java-technical-docs/images/source/image-34.png)
+![消息转换器](/images/source/image-34.png)
 
 对象消息需要序列化。项目中常使用 JSON 消息转换器：
 
@@ -218,15 +218,15 @@ public MessageConverter messageConverter() {
 
 ### 生产者重连
 
-![生产者重连](/java-technical-docs/images/source/image-35.png)
+![生产者重连](/images/source/image-35.png)
 
 由于重连是阻塞等待，比较影响性能，一般不作为主要方案。
 
 ### 生产者确认保障可靠性
 
-![生产者确认 1](/java-technical-docs/images/source/image-36.png)
+![生产者确认 1](/images/source/image-36.png)
 
-![生产者确认 2](/java-technical-docs/images/source/image-37.png)
+![生产者确认 2](/images/source/image-37.png)
 
 生产者确认用于判断消息是否成功到达交换机，以及是否成功路由到队列。
 
@@ -241,7 +241,7 @@ spring:
 
 ### MQ 可靠性
 
-![MQ 可靠性](/java-technical-docs/images/source/image-38.png)
+![MQ 可靠性](/images/source/image-38.png)
 
 整体思路：
 
@@ -251,17 +251,17 @@ spring:
 
 ### 消费者消息可靠性
 
-![消费者消息可靠性 1](/java-technical-docs/images/source/image-39.png)
+![消费者消息可靠性 1](/images/source/image-39.png)
 
-![消费者消息可靠性 2](/java-technical-docs/images/source/image-40.png)
+![消费者消息可靠性 2](/images/source/image-40.png)
 
 为了防止业务异常无限重试，需要设置重试次数限制：
 
-![消费者重试限制 1](/java-technical-docs/images/source/image-41.png)
+![消费者重试限制 1](/images/source/image-41.png)
 
-![消费者重试限制 2](/java-technical-docs/images/source/image-42.png)
+![消费者重试限制 2](/images/source/image-42.png)
 
-![消费者重试限制 3](/java-technical-docs/images/source/image-43.png)
+![消费者重试限制 3](/images/source/image-43.png)
 
 配置示例：
 
@@ -279,7 +279,7 @@ spring:
 
 总结：
 
-![MQ 消息可靠性总结](/java-technical-docs/images/source/image-44.png)
+![MQ 消息可靠性总结](/images/source/image-44.png)
 
 ## 延迟消息
 
@@ -287,7 +287,7 @@ spring:
 
 ### 死信交换机实现延迟消息
 
-![死信交换机实现延迟消息](/java-technical-docs/images/source/image-45.png)
+![死信交换机实现延迟消息](/images/source/image-45.png)
 
 基本思路：
 
@@ -301,9 +301,9 @@ spring:
 
 ### 插件实现延迟消息
 
-![插件实现延迟消息 1](/java-technical-docs/images/source/image-46.png)
+![插件实现延迟消息 1](/images/source/image-46.png)
 
-![插件实现延迟消息 2](/java-technical-docs/images/source/image-47.png)
+![插件实现延迟消息 2](/images/source/image-47.png)
 
 插件方案通常更直接，但需要 RabbitMQ 安装延迟消息插件。
 

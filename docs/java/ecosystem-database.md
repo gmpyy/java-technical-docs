@@ -14,9 +14,9 @@ Java 后端学习不只包含 Java 语法，还会进入 Maven、数据库、Spr
 
 ## Maven
 
-![Maven 说明 1](/java-technical-docs/images/source/image-06.png)
+![Maven 说明 1](/images/source/image-06.png)
 
-![Maven 说明 2](/java-technical-docs/images/source/image-07.png)
+![Maven 说明 2](/images/source/image-07.png)
 
 Maven 常用于解决三个问题：
 
@@ -52,7 +52,7 @@ project
 
 ### 常用数据类型
 
-![MySQL 常用数据类型](/java-technical-docs/images/source/image-08.png)
+![MySQL 常用数据类型](/images/source/image-08.png)
 
 常见 MySQL 类型：
 
@@ -67,7 +67,7 @@ project
 
 ### 常用 SQL 语句
 
-![常用 SQL 语句](/java-technical-docs/images/source/image-09.png)
+![常用 SQL 语句](/images/source/image-09.png)
 
 常见 SQL 可以按增删改查记：
 
@@ -133,7 +133,7 @@ CREATE TABLE orders (
 
 ### SQL 索引
 
-![SQL 索引](/java-technical-docs/images/source/image-10.png)
+![SQL 索引](/images/source/image-10.png)
 
 索引用于提高查询速度。可以把索引理解为数据库为某些字段额外维护的一份“目录”。
 

@@ -14,7 +14,7 @@ Spring Boot 项目看起来目录不多，但后端项目真正重要的是职�
 
 ## 目录结构
 
-![Spring Boot 目录结构](/java-technical-docs/images/source/image-11.png)
+![Spring Boot 目录结构](/images/source/image-11.png)
 
 ## 项目结构概览
 
@@ -169,7 +169,7 @@ src/main/resources/
 └── templates/                  # 模板文件（Thymeleaf, FreeMarker 等）
 ```
 
-![resources 目录内容](/java-technical-docs/images/source/image-12.png)
+![resources 目录内容](/images/source/image-12.png)
 
 常见配置示例：
 

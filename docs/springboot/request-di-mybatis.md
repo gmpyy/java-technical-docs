@@ -202,7 +202,7 @@ public Map<String, Object> simpleParams(Long id, String name) {
 }
 ```
 
-![请求参数示例](/java-technical-docs/images/source/image-13.png)
+![请求参数示例](/images/source/image-13.png)
 
 ## 完整请求参数示例
 

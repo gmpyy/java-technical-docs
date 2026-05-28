@@ -193,7 +193,7 @@ public class StringJoinerDemo2 {
 
 ## ArrayList 集合
 
-![ArrayList 集合](/java-technical-docs/images/source/image-04.png)
+![ArrayList 集合](/images/source/image-04.png)
 
 ### 成员方法
 

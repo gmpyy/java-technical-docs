@@ -27,7 +27,7 @@ outline: [2, 4]
 
 Java 语言并不是直接运行在操作系统上，而是运行在虚拟机上。所以不同的操作系统只要安装该系统对应的虚拟机，就可以运行 Java 程序。
 
-![Java 跨平台运行原理](/java-technical-docs/images/source/image-01.png)
+![Java 跨平台运行原理](/images/source/image-01.png)
 
 可以把它理解成下面这条链路：
 
@@ -49,7 +49,7 @@ Java 源代码 .java
 
 ## Java 的注释
 
-![Java 注释类型](/java-technical-docs/images/source/image-02.png)
+![Java 注释类型](/images/source/image-02.png)
 
 Java 的注释有三种：
 
@@ -84,7 +84,7 @@ Java 的注释有三种：
 - 字符类型使用单引号：`'a'`
 - 字符串类型使用双引号：`"abc"`
 
-![Java 字面量](/java-technical-docs/images/source/image-03.png)
+![Java 字面量](/images/source/image-03.png)
 
 常见字面量示例：
 

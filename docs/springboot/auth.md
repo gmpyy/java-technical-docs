@@ -10,7 +10,7 @@ outline: [2, 4]
 
 ## JWT 鉴权
 
-![JWT 鉴权流程](/java-technical-docs/images/source/image-19.png)
+![JWT 鉴权流程](/images/source/image-19.png)
 
 认证链路的核心是：
 
@@ -178,9 +178,9 @@ public void validateToken(String token) {
 
 ## Session 实现验证码验证
 
-![Session 验证码流程 1](/java-technical-docs/images/source/image-20.png)
+![Session 验证码流程 1](/images/source/image-20.png)
 
-![Session 验证码流程 2](/java-technical-docs/images/source/image-21.png)
+![Session 验证码流程 2](/images/source/image-21.png)
 
 验证码的核心流程：
 

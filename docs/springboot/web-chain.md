@@ -10,15 +10,15 @@ outline: [2, 4]
 
 ## 拦截器、过滤器以及全局 MVC 配置
 
-![Filter 与 Interceptor 图 1](/java-technical-docs/images/source/image-14.png)
+![Filter 与 Interceptor 图 1](/images/source/image-14.png)
 
-![Filter 与 Interceptor 图 2](/java-technical-docs/images/source/image-15.png)
+![Filter 与 Interceptor 图 2](/images/source/image-15.png)
 
-![Filter 与 Interceptor 图 3](/java-technical-docs/images/source/image-16.png)
+![Filter 与 Interceptor 图 3](/images/source/image-16.png)
 
-![Filter 与 Interceptor 图 4](/java-technical-docs/images/source/image-17.png)
+![Filter 与 Interceptor 图 4](/images/source/image-17.png)
 
-![Filter 与 Interceptor 图 5](/java-technical-docs/images/source/image-18.png)
+![Filter 与 Interceptor 图 5](/images/source/image-18.png)
 
 简化链路：
 

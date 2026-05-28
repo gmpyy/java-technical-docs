@@ -341,7 +341,7 @@ class Student extends Person {
 
 ## 抽象类和接口
 
-![抽象类和接口](/java-technical-docs/images/source/image-05.png)
+![抽象类和接口](/images/source/image-05.png)
 
 ### 抽象类
 

@@ -22,7 +22,7 @@ Redis 的几个入门特点：
 
 ### Redis 常用指令
 
-![Redis 常用指令](/java-technical-docs/images/source/image-48.png)
+![Redis 常用指令](/images/source/image-48.png)
 
 常见命令示例：
 
@@ -115,11 +115,11 @@ ZRANGE shop:rank 0 -1 WITHSCORES
 4. `spring-boot-starter-data-redis-test`：测试支持，`test` scope
 5. Spring Web
 
-![Spring Boot Redis 配置 1](/java-technical-docs/images/source/image-49.png)
+![Spring Boot Redis 配置 1](/images/source/image-49.png)
 
-![Spring Boot Redis 配置 2](/java-technical-docs/images/source/image-50.png)
+![Spring Boot Redis 配置 2](/images/source/image-50.png)
 
-![Spring Boot Redis 配置 3](/java-technical-docs/images/source/image-51.png)
+![Spring Boot Redis 配置 3](/images/source/image-51.png)
 
 常见配置示例：
 

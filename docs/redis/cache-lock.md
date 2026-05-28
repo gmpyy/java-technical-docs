@@ -52,7 +52,7 @@ public Shop queryById(Long id) {
 
 ## 缓存更新最佳实践
 
-![缓存更新最佳实践](/java-technical-docs/images/source/image-52.png)
+![缓存更新最佳实践](/images/source/image-52.png)
 
 常见策略：
 
@@ -146,7 +146,7 @@ public class RedisData {
 
 ## 缓存的封装方法
 
-![缓存封装方法](/java-technical-docs/images/source/image-53.png)
+![缓存封装方法](/images/source/image-53.png)
 
 封装缓存工具类时，可以把下面几类能力抽出来：
 
@@ -225,15 +225,15 @@ synchronized (userId.toString().intern()) {
 
 利用同步锁加事务可以解决单进程状态下的一人一单问题。但是对于集群，会有多个进程，每个进程都有不同的锁监听器。同步锁在集群状态下就没有效果，因为同步锁只能对它所在的进程生效，其他进程不会共用同一个同步锁。这时候就需要多个进程共同的锁，也就是分布式锁。
 
-![分布式锁原理](/java-technical-docs/images/source/image-54.png)
+![分布式锁原理](/images/source/image-54.png)
 
 定义一个类实现分布式锁：
 
-![自定义分布式锁](/java-technical-docs/images/source/image-55.png)
+![自定义分布式锁](/images/source/image-55.png)
 
 优化分布式锁，防止释放别人的锁：
 
-![防止释放别人的锁](/java-technical-docs/images/source/image-56.png)
+![防止释放别人的锁](/images/source/image-56.png)
 
 基础加锁：
 
