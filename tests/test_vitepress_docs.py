@@ -99,6 +99,25 @@ class VitePressDocsTests(unittest.TestCase):
             text = md_file.read_text(encoding="utf-8")
             self.assertIsNone(bad_pattern.search(text), f"bad artifact in {md_file}")
 
+    def test_content_is_not_overcompressed(self):
+        corpus = "\n".join(
+            md_file.read_text(encoding="utf-8")
+            for md_file in DOCS.rglob("*.md")
+        )
+        self.assertGreater(len(corpus), 80000)
+        self.assertGreaterEqual(corpus.count("```"), 100)
+
+        image_refs = re.findall(
+            r"/java-technical-docs/images/source/image-\d{2}\.png",
+            corpus,
+        )
+        self.assertEqual(len(image_refs), 56)
+        self.assertEqual(len(set(image_refs)), 56)
+        for index in range(1, 57):
+            image_name = f"image-{index:02d}.png"
+            self.assertIn(f"/java-technical-docs/images/source/{image_name}", corpus)
+            self.assertTrue((DOCS / "public" / "images" / "source" / image_name).exists())
+
     def test_github_pages_workflow_builds_vitepress(self):
         config = DOCS / ".vitepress" / "config.mts"
         config_text = config.read_text(encoding="utf-8")
