@@ -26,6 +26,16 @@ EXPECTED_FILES = [
     "redis/advanced.md",
 ]
 
+REACT_FILES = [
+    "react/index.md",
+    "react/component-basics.md",
+    "react/state-lifecycle.md",
+    "react/hooks.md",
+    "react/rendering.md",
+    "react/router-state.md",
+    "react/ecosystem-practice.md",
+]
+
 
 REQUIRED_TERMS = [
     "Java 跨平台",
@@ -63,6 +73,61 @@ REQUIRED_TERMS = [
     "GEO",
     "Bitmap",
     "HyperLogLog",
+]
+
+REACT_REQUIRED_TERMS = [
+    "SyntheticEvent",
+    "事件代理",
+    "高阶组件",
+    "Render props",
+    "React Hooks",
+    "Fiber",
+    "PureComponent",
+    "React Element",
+    "React.createClass",
+    "componentWillReceiveProps",
+    "Fragment",
+    "Portals",
+    "React-Intl",
+    "Context",
+    "受控组件",
+    "非受控组件",
+    "forwardRef",
+    "setState",
+    "replaceState",
+    "getDefaultProps",
+    "PropTypes",
+    "getDerivedStateFromProps",
+    "getSnapshotBeforeUpdate",
+    "shouldComponentUpdate",
+    "父子组件",
+    "跨级组件",
+    "发布订阅",
+    "React-Router",
+    "Link",
+    "Switch",
+    "history",
+    "Redux",
+    "store",
+    "reducer",
+    "middleware",
+    "connect",
+    "MobX",
+    "Vuex",
+    "useState",
+    "useEffect",
+    "useLayoutEffect",
+    "useMemo",
+    "useCallback",
+    "useRef",
+    "虚拟 DOM",
+    "diff",
+    "key",
+    "SSR",
+    "JSX",
+    "TypeScript",
+    "严格模式",
+    "React.Children",
 ]
 
 
@@ -132,6 +197,37 @@ class VitePressDocsTests(unittest.TestCase):
         self.assertIn("npm install", text)
         self.assertIn("npm run docs:build", text)
         self.assertIn("docs/.vitepress/dist", text)
+
+    def test_react_docs_structure_and_content_coverage(self):
+        for rel in REACT_FILES:
+            self.assertTrue((DOCS / rel).exists(), f"missing {rel}")
+
+        config_text = (DOCS / ".vitepress" / "config.mts").read_text(encoding="utf-8")
+        self.assertIn("{ text: 'React', link: '/react/' }", config_text)
+        self.assertIn("React 技术文档", config_text)
+
+        corpus = []
+        for rel in REACT_FILES:
+            text = (DOCS / rel).read_text(encoding="utf-8")
+            corpus.append(text)
+            self.assertRegex(text, r"\A---\n[\s\S]+?\n---\n", f"{rel} missing frontmatter")
+            self.assertRegex(text, r"(?m)^# ", f"{rel} missing h1")
+            self.assertIn("```", text, f"{rel} should preserve code examples")
+
+        react_text = "\n".join(corpus)
+        self.assertGreater(len(react_text), 36000)
+        self.assertGreaterEqual(react_text.count("```"), 30)
+
+        for term in REACT_REQUIRED_TERMS:
+            self.assertIn(term, react_text, f"missing React term: {term}")
+
+        forbidden = re.compile(r"面试|面试题|面试官")
+        self.assertIsNone(forbidden.search(react_text), "React docs should avoid interview wording")
+        self.assertIsNone(forbidden.search(config_text), "config should avoid interview wording")
+
+        remote = re.compile(r"https?://|yuque|cdn\.nlark|internal-api|alipayobjects")
+        self.assertIsNone(remote.search(react_text), "React docs should not depend on remote resources")
+        self.assertTrue((DOCS / "public" / "images" / "react").exists())
 
 
 if __name__ == "__main__":

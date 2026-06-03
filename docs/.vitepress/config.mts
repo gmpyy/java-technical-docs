@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Java 技术文档',
-  description: '从 Java 基础到 Spring Boot、RabbitMQ 与 Redis 的系统化学习文档',
+  title: '技术文档',
+  description: '从 Java 后端到 React 前端的系统化学习文档',
   base: '/java-technical-docs/',
   lang: 'zh-CN',
   cleanUrls: true,
@@ -14,6 +14,7 @@ export default defineConfig({
     },
     nav: [
       { text: '首页', link: '/' },
+      { text: 'React', link: '/react/' },
       { text: 'Java', link: '/java/basic' },
       { text: 'Spring Boot', link: '/springboot/project' },
       { text: 'Redis', link: '/redis/basics' }
@@ -23,6 +24,19 @@ export default defineConfig({
         text: '总览',
         items: [
           { text: '文档首页', link: '/' }
+        ]
+      },
+      {
+        text: 'React 技术文档',
+        collapsed: false,
+        items: [
+          { text: 'React 总览', link: '/react/' },
+          { text: '组件基础', link: '/react/component-basics' },
+          { text: '状态与生命周期', link: '/react/state-lifecycle' },
+          { text: 'Hooks', link: '/react/hooks' },
+          { text: '渲染机制', link: '/react/rendering' },
+          { text: '通信、路由与状态管理', link: '/react/router-state' },
+          { text: '工程实践', link: '/react/ecosystem-practice' }
         ]
       },
       {
@@ -67,8 +81,8 @@ export default defineConfig({
       next: '下一页'
     },
     footer: {
-      message: '基于 JAVA.md 重构整理',
-      copyright: 'Java 技术文档'
+      message: '基于技术资料重构整理',
+      copyright: '技术文档'
     }
   }
 })
