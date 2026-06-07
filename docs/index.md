@@ -13,6 +13,7 @@ outline: [2, 3]
 | 阶段 | 推荐章节 | 目标 |
 | --- | --- | --- |
 | 语言基础 | Java 基础、方法与 IO、字符串与集合 | 看懂 Java 代码的基本结构 |
+| 前端基础 | Vue、React | 理解组件、状态、路由和工程化开发方式 |
 | 面向对象 | static、继承、抽象类、接口 | 理解类、对象、能力抽象和复用方式 |
 | Web 后端 | Spring Boot 项目结构、请求参数、依赖注入 | 能搭建标准分层项目 |
 | 认证与稳定性 | JWT、验证码、事务、定时任务 | 能处理登录、鉴权和失败回滚 |
@@ -20,6 +21,8 @@ outline: [2, 3]
 
 ## 章节地图
 
+- [Vue 技术文档](/vue/)：Vue3、Vite、Composition API、Vue Router、Pinia、组件库、项目实践和旧项目维护。
+- [React 技术文档](/react/)：组件基础、状态生命周期、Hooks、渲染机制、路由状态管理和工程实践。
 - [基础语法与类型](/java/basic)：Java 跨平台、注释、字面量、基本数据类型、命名规范。
 - [方法、IO 与 JavaBean](/java/syntax)：文件读写、Scanner、类型转换、方法、重载、构造方法、JavaBean。
 - [字符串与集合](/java/string-collections)：字符串比较、StringBuilder、StringJoiner、ArrayList、数组/List/Set/Map、枚举。
@@ -46,4 +49,3 @@ Markdown 源文件
   └─ VitePress 默认主题
       └─ 静态站点，可部署到 GitHub Pages / Cloudflare Pages
 ```
-

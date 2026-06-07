@@ -1,6 +1,6 @@
-# Java 技术文档
+# 技术文档站
 
-这是基于 `D:\Users\gmpyy\Downloads\JAVA.md` 重新整理的 Markdown + VitePress 文档站。
+这是一个基于 Markdown + VitePress 的技术文档站，内容覆盖 Vue、React、Java、Spring Boot、RabbitMQ 与 Redis。
 
 ## 本地运行
 
@@ -26,6 +26,8 @@ docs/.vitepress/dist
 ## 内容结构
 
 - `docs/index.md`：文档首页和学习路线。
+- `docs/vue/`：Vue3、Vite、Composition API、Vue Router、Pinia、组件库、项目实践和旧项目维护。
+- `docs/react/`：React 组件、状态生命周期、Hooks、渲染机制、路由状态管理和工程实践。
 - `docs/java/`：Java 基础、语法、集合、面向对象、数据库基础。
 - `docs/springboot/`：Spring Boot 分层、请求参数、依赖注入、Web 链路、认证、事务和定时任务。
 - `docs/middleware/`：RabbitMQ。

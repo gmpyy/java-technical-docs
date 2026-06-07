@@ -36,6 +36,16 @@ REACT_FILES = [
     "react/ecosystem-practice.md",
 ]
 
+VUE_FILES = [
+    "vue/index.md",
+    "vue/project.md",
+    "vue/basics.md",
+    "vue/composition.md",
+    "vue/components-router.md",
+    "vue/state-request.md",
+    "vue/ui-projects-legacy.md",
+]
+
 
 REQUIRED_TERMS = [
     "Java 跨平台",
@@ -128,6 +138,25 @@ REACT_REQUIRED_TERMS = [
     "TypeScript",
     "严格模式",
     "React.Children",
+]
+
+VUE_REQUIRED_TERMS = [
+    "create-vue",
+    "Vite",
+    "<script setup>",
+    "Pinia",
+    "defineModel",
+    "Vue Router 4",
+    "composables",
+    "Vuex",
+    "Element Plus",
+    "Vant",
+    "postcss-px-to-viewport",
+    "axios 拦截器",
+    "Drawer",
+    "上传预览",
+    "智慧商城",
+    "文章管理系统",
 ]
 
 
@@ -228,6 +257,33 @@ class VitePressDocsTests(unittest.TestCase):
         remote = re.compile(r"https?://|yuque|cdn\.nlark|internal-api|alipayobjects")
         self.assertIsNone(remote.search(react_text), "React docs should not depend on remote resources")
         self.assertTrue((DOCS / "public" / "images" / "react").exists())
+
+    def test_vue_docs_structure_and_content_coverage(self):
+        for rel in VUE_FILES:
+            self.assertTrue((DOCS / rel).exists(), f"missing {rel}")
+
+        config_text = (DOCS / ".vitepress" / "config.mts").read_text(encoding="utf-8")
+        self.assertIn("{ text: 'Vue', link: '/vue/' }", config_text)
+        self.assertIn("Vue 技术文档", config_text)
+
+        corpus = []
+        for rel in VUE_FILES:
+            text = (DOCS / rel).read_text(encoding="utf-8")
+            corpus.append(text)
+            self.assertRegex(text, r"\A---\n[\s\S]+?\n---\n", f"{rel} missing frontmatter")
+            self.assertRegex(text, r"(?m)^# ", f"{rel} missing h1")
+            self.assertIn("```", text, f"{rel} should preserve code examples")
+
+        vue_text = "\n".join(corpus)
+        self.assertGreater(len(vue_text), 20000)
+        self.assertGreaterEqual(vue_text.count("```"), 55)
+
+        for term in VUE_REQUIRED_TERMS:
+            self.assertIn(term, vue_text, f"missing Vue term: {term}")
+
+        forbidden = re.compile(r"面试|面试题|面试官")
+        self.assertIsNone(forbidden.search(vue_text), "Vue docs should avoid interview wording")
+        self.assertIsNone(forbidden.search(config_text), "config should avoid interview wording")
 
 
 if __name__ == "__main__":

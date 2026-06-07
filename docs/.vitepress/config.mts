@@ -14,6 +14,7 @@ export default defineConfig({
     },
     nav: [
       { text: '首页', link: '/' },
+      { text: 'Vue', link: '/vue/' },
       { text: 'React', link: '/react/' },
       { text: 'Java', link: '/java/basic' },
       { text: 'Spring Boot', link: '/springboot/project' },
@@ -24,6 +25,19 @@ export default defineConfig({
         text: '总览',
         items: [
           { text: '文档首页', link: '/' }
+        ]
+      },
+      {
+        text: 'Vue 技术文档',
+        collapsed: false,
+        items: [
+          { text: 'Vue 总览', link: '/vue/' },
+          { text: '项目主线', link: '/vue/project' },
+          { text: '核心基础', link: '/vue/basics' },
+          { text: 'Composition API', link: '/vue/composition' },
+          { text: '组件与路由', link: '/vue/components-router' },
+          { text: '状态与请求', link: '/vue/state-request' },
+          { text: 'UI、项目与旧项目维护', link: '/vue/ui-projects-legacy' }
         ]
       },
       {
