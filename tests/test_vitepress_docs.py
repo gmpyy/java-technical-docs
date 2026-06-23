@@ -36,6 +36,18 @@ REACT_FILES = [
     "react/ecosystem-practice.md",
 ]
 
+REACT_SERIES_FILES = [
+    "react-series/index.md",
+    "react-series/foundation.md",
+    "react-series/components.md",
+    "react-series/state-lifecycle.md",
+    "react-series/hooks-style-animation.md",
+    "react-series/routing-state.md",
+    "react-series/rendering-performance.md",
+    "react-series/engineering.md",
+    "react-series/coverage.md",
+]
+
 VUE_FILES = [
     "vue/index.md",
     "vue/project.md",
@@ -138,6 +150,42 @@ REACT_REQUIRED_TERMS = [
     "TypeScript",
     "严格模式",
     "React.Children",
+]
+
+REACT_SERIES_COVERAGE_TERMS = [
+    "React 概念与特性",
+    "Real DOM 与 Virtual DOM",
+    "React 生命周期阶段",
+    "state 与 props",
+    "super() 与 super(props)",
+    "setState 执行机制",
+    "React 事件机制",
+    "React 事件绑定方式",
+    "React 组件构建方式",
+    "React 组件通信",
+    "key 的作用",
+    "refs 的理解与应用",
+    "类组件与函数组件",
+    "受控组件与非受控组件",
+    "高阶组件",
+    "React Hooks",
+    "React 中 CSS 引入方式",
+    "React 组件过渡动画",
+    "Redux 理解与工作原理",
+    "Redux middleware",
+    "React 项目中的 Redux 使用与结构划分",
+    "React Router 理解与常用组件",
+    "React Router 模式与实现原理",
+    "immutable 在 React 中的应用",
+    "React render 原理与触发时机",
+    "提高组件渲染效率",
+    "React diff 原理",
+    "Fiber 架构",
+    "JSX 转换为真实 DOM",
+    "React 性能优化手段",
+    "React 错误捕获",
+    "React 服务端渲染",
+    "React 常见问题与解决方式",
 ]
 
 VUE_REQUIRED_TERMS = [
@@ -257,6 +305,37 @@ class VitePressDocsTests(unittest.TestCase):
         remote = re.compile(r"https?://|yuque|cdn\.nlark|internal-api|alipayobjects")
         self.assertIsNone(remote.search(react_text), "React docs should not depend on remote resources")
         self.assertTrue((DOCS / "public" / "images" / "react").exists())
+
+    def test_react_series_docs_structure_and_source_coverage(self):
+        for rel in REACT_SERIES_FILES:
+            self.assertTrue((DOCS / rel).exists(), f"missing {rel}")
+
+        config_text = (DOCS / ".vitepress" / "config.mts").read_text(encoding="utf-8")
+        self.assertIn("{ text: 'React 全系列', link: '/react-series/' }", config_text)
+        self.assertIn("React 全系列技术文档", config_text)
+
+        corpus = []
+        for rel in REACT_SERIES_FILES:
+            text = (DOCS / rel).read_text(encoding="utf-8")
+            corpus.append(text)
+            self.assertRegex(text, r"\A---\n[\s\S]+?\n---\n", f"{rel} missing frontmatter")
+            self.assertRegex(text, r"(?m)^# ", f"{rel} missing h1")
+
+        series_text = "\n".join(corpus)
+        self.assertGreater(len(series_text), 45000)
+        self.assertGreaterEqual(series_text.count("```"), 45)
+
+        coverage_text = (DOCS / "react-series" / "coverage.md").read_text(encoding="utf-8")
+        for term in REACT_SERIES_COVERAGE_TERMS:
+            self.assertIn(term, coverage_text, f"missing React series coverage term: {term}")
+            self.assertIn(term, series_text, f"missing React series content term: {term}")
+
+        forbidden = re.compile(r"面试|面试题|面试官|题库|怎么回答")
+        self.assertIsNone(forbidden.search(series_text), "React series docs should avoid source-site wording")
+        self.assertIsNone(forbidden.search(config_text), "config should avoid source-site wording")
+
+        remote = re.compile(r"https?://|yuque|cdn\.nlark|internal-api|alipayobjects")
+        self.assertIsNone(remote.search(series_text), "React series docs should not depend on remote resources")
 
     def test_vue_docs_structure_and_content_coverage(self):
         for rel in VUE_FILES:

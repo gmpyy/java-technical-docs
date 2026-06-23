@@ -16,6 +16,7 @@ export default defineConfig({
       { text: '首页', link: '/' },
       { text: 'Vue', link: '/vue/' },
       { text: 'React', link: '/react/' },
+      { text: 'React 全系列', link: '/react-series/' },
       { text: 'Java', link: '/java/basic' },
       { text: 'Spring Boot', link: '/springboot/project' },
       { text: 'Redis', link: '/redis/basics' }
@@ -51,6 +52,21 @@ export default defineConfig({
           { text: '渲染机制', link: '/react/rendering' },
           { text: '通信、路由与状态管理', link: '/react/router-state' },
           { text: '工程实践', link: '/react/ecosystem-practice' }
+        ]
+      },
+      {
+        text: 'React 全系列技术文档',
+        collapsed: false,
+        items: [
+          { text: 'React 全系列总览', link: '/react-series/' },
+          { text: 'React 基础模型', link: '/react-series/foundation' },
+          { text: '组件系统', link: '/react-series/components' },
+          { text: '状态与生命周期', link: '/react-series/state-lifecycle' },
+          { text: 'Hooks、样式与动画', link: '/react-series/hooks-style-animation' },
+          { text: '路由与状态管理', link: '/react-series/routing-state' },
+          { text: '渲染与性能', link: '/react-series/rendering-performance' },
+          { text: '工程实践', link: '/react-series/engineering' },
+          { text: '来源覆盖表', link: '/react-series/coverage' }
         ]
       },
       {
