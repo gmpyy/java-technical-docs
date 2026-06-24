@@ -1,3 +1,4 @@
+import hashlib
 import re
 import unittest
 from pathlib import Path
@@ -46,6 +47,26 @@ REACT_SERIES_FILES = [
     "react-series/rendering-performance.md",
     "react-series/engineering.md",
     "react-series/coverage.md",
+]
+
+REACT_NOTES_READING_FILES = [
+    "react-notes/index.md",
+    "react-notes/basics.md",
+    "react-notes/redux.md",
+    "react-notes/router.md",
+    "react-notes/project-practice.md",
+    "react-notes/advanced.md",
+    "react-notes/zustand.md",
+    "react-notes/react-ts.md",
+    "react-notes/stack-selection.md",
+    "react-notes/react-project.md",
+    "react-notes/next-project.md",
+    "react-notes/styling.md",
+]
+
+REACT_NOTES_FILES = [
+    *REACT_NOTES_READING_FILES,
+    "react-notes/source.md",
 ]
 
 VUE_FILES = [
@@ -188,6 +209,20 @@ REACT_SERIES_COVERAGE_TERMS = [
     "React 常见问题与解决方式",
 ]
 
+REACT_NOTES_TOP_LEVEL_TERMS = [
+    "React",
+    "状态管理工具Redux",
+    "react路由",
+    "实际项目开发",
+    "react高级",
+    "状态管理工具zustand",
+    "react\\+ts",
+    "项目开发技术栈选型",
+    "react项目开发",
+    "next项目开发",
+    "样式方案",
+]
+
 VUE_REQUIRED_TERMS = [
     "create-vue",
     "Vite",
@@ -238,6 +273,8 @@ class VitePressDocsTests(unittest.TestCase):
     def test_no_mojibake_or_internal_image_links(self):
         bad_pattern = re.compile(r"锛|绛|鎶|�|internal-api-drive-stream|authcode")
         for md_file in DOCS.rglob("*.md"):
+            if md_file == DOCS / "react-notes" / "source.md":
+                continue
             text = md_file.read_text(encoding="utf-8")
             self.assertIsNone(bad_pattern.search(text), f"bad artifact in {md_file}")
 
@@ -336,6 +373,55 @@ class VitePressDocsTests(unittest.TestCase):
 
         remote = re.compile(r"https?://|yuque|cdn\.nlark|internal-api|alipayobjects")
         self.assertIsNone(remote.search(series_text), "React series docs should not depend on remote resources")
+
+    def test_react_notes_preserve_source_and_align_menu(self):
+        for rel in REACT_NOTES_FILES:
+            self.assertTrue((DOCS / rel).exists(), f"missing {rel}")
+
+        config_text = (DOCS / ".vitepress" / "config.mts").read_text(encoding="utf-8")
+        self.assertIn("{ text: 'React 原文笔记', link: '/react-notes/' }", config_text)
+        self.assertIn("React 原文笔记", config_text)
+        for label in [
+            "React 原文笔记总览",
+            "React 基础",
+            "Redux",
+            "React 路由",
+            "实际项目开发",
+            "React 高级",
+            "Zustand",
+            "React + TS",
+            "技术栈选型",
+            "React 项目开发",
+            "Next 项目开发",
+            "样式方案",
+            "原文归档",
+        ]:
+            self.assertIn(label, config_text)
+
+        source_text = (DOCS / "react-notes" / "source.md").read_text(encoding="utf-8")
+        normalized_source = source_text.replace("\r\n", "\n").replace("\r", "\n")
+        self.assertEqual(len(normalized_source), 51886)
+        self.assertEqual(
+            hashlib.sha256(normalized_source.encode("utf-8")).hexdigest().upper(),
+            "98C573EC474852CB2866F2984D19167D706466BDCEB9CA96E3EEB94E9F2DF9A6",
+        )
+        self.assertEqual(normalized_source.count("```"), 156)
+        self.assertEqual(normalized_source.count("![Image]("), 9)
+
+        reading_corpus = []
+        for rel in REACT_NOTES_READING_FILES:
+            text = (DOCS / rel).read_text(encoding="utf-8")
+            reading_corpus.append(text)
+            self.assertRegex(text, r"\A---\n[\s\S]+?\n---\n", f"{rel} missing frontmatter")
+            self.assertRegex(text, r"(?m)^#{1,6}\s+", f"{rel} missing markdown heading")
+
+        reading_text = "\n".join(reading_corpus)
+        for term in REACT_NOTES_TOP_LEVEL_TERMS:
+            self.assertIn(term, reading_text, f"missing React notes term: {term}")
+
+        self.assertEqual(reading_text.count("/images/react-notes/image-"), 9)
+        self.assertNotIn("internal-api-drive-stream.feishu.cn", reading_text)
+        self.assertEqual(len(list((DOCS / "public" / "images" / "react-notes").glob("image-*.*"))), 9)
 
     def test_vue_docs_structure_and_content_coverage(self):
         for rel in VUE_FILES:

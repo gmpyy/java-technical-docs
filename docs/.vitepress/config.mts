@@ -17,6 +17,7 @@ export default defineConfig({
       { text: 'Vue', link: '/vue/' },
       { text: 'React', link: '/react/' },
       { text: 'React 全系列', link: '/react-series/' },
+      { text: 'React 原文笔记', link: '/react-notes/' },
       { text: 'Java', link: '/java/basic' },
       { text: 'Spring Boot', link: '/springboot/project' },
       { text: 'Redis', link: '/redis/basics' }
@@ -67,6 +68,25 @@ export default defineConfig({
           { text: '渲染与性能', link: '/react-series/rendering-performance' },
           { text: '工程实践', link: '/react-series/engineering' },
           { text: '来源覆盖表', link: '/react-series/coverage' }
+        ]
+      },
+      {
+        text: 'React 原文笔记',
+        collapsed: false,
+        items: [
+          { text: 'React 原文笔记总览', link: '/react-notes/' },
+          { text: 'React 基础', link: '/react-notes/basics' },
+          { text: 'Redux', link: '/react-notes/redux' },
+          { text: 'React 路由', link: '/react-notes/router' },
+          { text: '实际项目开发', link: '/react-notes/project-practice' },
+          { text: 'React 高级', link: '/react-notes/advanced' },
+          { text: 'Zustand', link: '/react-notes/zustand' },
+          { text: 'React + TS', link: '/react-notes/react-ts' },
+          { text: '技术栈选型', link: '/react-notes/stack-selection' },
+          { text: 'React 项目开发', link: '/react-notes/react-project' },
+          { text: 'Next 项目开发', link: '/react-notes/next-project' },
+          { text: '样式方案', link: '/react-notes/styling' },
+          { text: '原文归档', link: '/react-notes/source' }
         ]
       },
       {
