@@ -15,6 +15,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: 'Vue', link: '/vue/' },
+      { text: 'Vue 知识体系', link: '/vue-knowledge/' },
       { text: 'React', link: '/react/' },
       { text: 'React 全系列', link: '/react-series/' },
       { text: 'React 原文笔记', link: '/react-notes/' },
@@ -40,6 +41,20 @@ export default defineConfig({
           { text: '组件与路由', link: '/vue/components-router' },
           { text: '状态与请求', link: '/vue/state-request' },
           { text: 'UI、项目与旧项目维护', link: '/vue/ui-projects-legacy' }
+        ]
+      },
+      {
+        text: 'Vue 知识体系',
+        collapsed: false,
+        items: [
+          { text: 'Vue 知识体系总览', link: '/vue-knowledge/' },
+          { text: '一、Vue 基础', link: '/vue-knowledge/basics' },
+          { text: '二、生命周期', link: '/vue-knowledge/lifecycle' },
+          { text: '三、组件通信', link: '/vue-knowledge/component-communication' },
+          { text: '四、路由', link: '/vue-knowledge/router' },
+          { text: '五、Vuex', link: '/vue-knowledge/vuex' },
+          { text: '六、Vue 3.0', link: '/vue-knowledge/vue3' },
+          { text: '七、虚拟DOM', link: '/vue-knowledge/virtual-dom' }
         ]
       },
       {

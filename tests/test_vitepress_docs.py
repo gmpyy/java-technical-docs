@@ -79,6 +79,42 @@ VUE_FILES = [
     "vue/ui-projects-legacy.md",
 ]
 
+VUE_KNOWLEDGE_FILES = [
+    "vue-knowledge/index.md",
+    "vue-knowledge/basics.md",
+    "vue-knowledge/lifecycle.md",
+    "vue-knowledge/component-communication.md",
+    "vue-knowledge/router.md",
+    "vue-knowledge/vuex.md",
+    "vue-knowledge/vue3.md",
+    "vue-knowledge/virtual-dom.md",
+]
+
+VUE_KNOWLEDGE_CHAPTERS = [
+    ("一、Vue 基础", "/vue-knowledge/basics"),
+    ("二、生命周期", "/vue-knowledge/lifecycle"),
+    ("三、组件通信", "/vue-knowledge/component-communication"),
+    ("四、路由", "/vue-knowledge/router"),
+    ("五、Vuex", "/vue-knowledge/vuex"),
+    ("六、Vue 3.0", "/vue-knowledge/vue3"),
+    ("七、虚拟DOM", "/vue-knowledge/virtual-dom"),
+]
+
+VUE_KNOWLEDGE_REQUIRED_TERMS = [
+    "Vue 实例",
+    "v-model",
+    "keep-alive",
+    "nextTick",
+    "生命周期",
+    "组件通信",
+    "Vue Router",
+    "Vuex",
+    "Vue 3.0",
+    "Virtual DOM",
+    "Diff",
+    "key",
+]
+
 
 REQUIRED_TERMS = [
     "Java 跨平台",
@@ -449,6 +485,48 @@ class VitePressDocsTests(unittest.TestCase):
         forbidden = re.compile(r"面试|面试题|面试官")
         self.assertIsNone(forbidden.search(vue_text), "Vue docs should avoid interview wording")
         self.assertIsNone(forbidden.search(config_text), "config should avoid interview wording")
+
+    def test_vue_knowledge_structure_and_content_coverage(self):
+        for rel in VUE_KNOWLEDGE_FILES:
+            self.assertTrue((DOCS / rel).exists(), f"missing {rel}")
+
+        config_text = (DOCS / ".vitepress" / "config.mts").read_text(encoding="utf-8")
+        self.assertIn("{ text: 'Vue 知识体系', link: '/vue-knowledge/' }", config_text)
+        self.assertIn("Vue 知识体系", config_text)
+
+        chapter_positions = [
+            config_text.index(f"{{ text: '{title}', link: '{link}' }}")
+            for title, link in VUE_KNOWLEDGE_CHAPTERS
+        ]
+        self.assertEqual(chapter_positions, sorted(chapter_positions), "Vue knowledge sidebar order changed")
+
+        corpus = []
+        section_count = 0
+        for rel in VUE_KNOWLEDGE_FILES:
+            text = (DOCS / rel).read_text(encoding="utf-8")
+            corpus.append(text)
+            self.assertRegex(text, r"\A---\n[\s\S]+?\n---\n", f"{rel} missing frontmatter")
+            self.assertRegex(text, r"(?m)^# ", f"{rel} missing h1")
+            if rel != "vue-knowledge/index.md":
+                section_count += len(re.findall(r"(?m)^##\s+\d+\.", text))
+
+        vue_knowledge_text = "\n".join(corpus)
+        self.assertGreater(len(vue_knowledge_text), 50000)
+        self.assertGreaterEqual(vue_knowledge_text.count("```"), 160)
+        self.assertEqual(section_count, 90)
+
+        for title, _ in VUE_KNOWLEDGE_CHAPTERS:
+            self.assertIn(f"# {title}", vue_knowledge_text)
+
+        for term in VUE_KNOWLEDGE_REQUIRED_TERMS:
+            self.assertIn(term, vue_knowledge_text, f"missing Vue knowledge term: {term}")
+
+        forbidden = re.compile(r"面试|面试题|面试官|题库|校招|内推|公众号|交流群|PDF版|打卡")
+        self.assertIsNone(forbidden.search(vue_knowledge_text), "Vue knowledge docs should avoid source-site wording")
+        self.assertIsNone(forbidden.search(config_text), "config should avoid source-site wording")
+
+        remote = re.compile(r"https?://|yuque|cdn\.nlark|alipayobjects")
+        self.assertIsNone(remote.search(vue_knowledge_text), "Vue knowledge docs should not depend on remote resources")
 
 
 if __name__ == "__main__":
